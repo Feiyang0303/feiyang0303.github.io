@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import SunriseBackground from './components/SunriseBackground';
 import TypewriterEffect from './components/TypewriterEffect';
 import './App.css';
@@ -133,7 +133,7 @@ const App: React.FC = () => {
                 <div className="skills">
                   <h3 style={{ color: morandiColors.dark }}>Skills</h3>
                   <div className="skill-tags">
-                    {['React', 'TypeScript', 'Node.js', 'Python', 'Three.js', 'Framer Motion'].map((skill, index) => (
+                    {['React', 'TypeScript', 'Node.js', 'Python', 'Three.js', 'Framer Motion'].map((skill) => (
                       <span
                         key={skill}
                         className="skill-tag"

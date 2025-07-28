@@ -5,7 +5,7 @@ import { Canvas } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 
 // Spaceship component using GLB model
-const Spaceship: React.FC<{ onClick: () => void; isTraveling: boolean }> = ({ onClick, isTraveling }) => {
+const Spaceship: React.FC<{ isTraveling: boolean }> = ({ isTraveling }) => {
   const groupRef = useRef<THREE.Group>(null);
   const timeRef = useRef(0);
   const [isBoosting, setIsBoosting] = useState(false);
@@ -24,7 +24,7 @@ const Spaceship: React.FC<{ onClick: () => void; isTraveling: boolean }> = ({ on
     }
   }, [scene]);
 
-  useFrame((state) => {
+  useFrame(() => {
     if (groupRef.current) {
       timeRef.current += 0.02;
       
@@ -139,7 +139,7 @@ const DiamondStar: React.FC<{ position: [number, number, number]; size: number; 
   const timeRef = useRef(0);
   const twinkleRef = useRef(Math.random() * Math.PI * 2);
 
-  useFrame((state) => {
+  useFrame(() => {
     if (groupRef.current) {
       timeRef.current += 0.01;
       twinkleRef.current += 0.03;
@@ -246,7 +246,7 @@ const GalaxyStars: React.FC<{ isTraveling: boolean }> = ({ isTraveling }) => {
     setOriginalPositions(positions);
   }, []);
 
-  useFrame((state) => {
+  useFrame(() => {
     if (starsRef.current && originalPositions.length > 0) {
       timeRef.current += 0.02;
       
@@ -487,7 +487,7 @@ const MagicalScene: React.FC<{ isTraveling: boolean }> = ({ isTraveling }) => {
       <GalaxyStars isTraveling={isTraveling} />
       
       {/* Spaceship - always show, let it handle boost state */}
-      <Spaceship onClick={() => {}} isTraveling={isTraveling} />
+      <Spaceship isTraveling={isTraveling} />
     </group>
   );
 };
@@ -552,7 +552,7 @@ const SunriseBackground: React.FC<{ isTraveling: boolean }> = ({ isTraveling }) 
         <MagicalScene isTraveling={isTraveling} />
         
         {/* Spaceship - always show, let it handle boost state */}
-        <Spaceship onClick={() => {}} isTraveling={isTraveling} />
+        <Spaceship isTraveling={isTraveling} />
       </Canvas>
     </div>
   );
