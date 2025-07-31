@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import SunriseBackground from './components/SunriseBackground';
 import TypewriterEffect from './components/TypewriterEffect';
+import Resume from './components/Resume';
 import './App.css';
 
 const App: React.FC = () => {
@@ -123,32 +124,65 @@ const App: React.FC = () => {
         {activeSection === 'about' && (
           <section className="about-section">
             <h2 style={{ color: morandiColors.dark }}>About Me</h2>
-            <div className="about-content">
-              <div className="about-text">
-                <p style={{ color: morandiColors.text }}>
-                  I'm a dedicated software developer with a passion for creating elegant solutions 
-                  to complex problems. With expertise in modern web technologies, I focus on 
-                  building user-centered applications that make a difference.
-                </p>
-                <div className="skills">
-                  <h3 style={{ color: morandiColors.dark }}>Skills</h3>
-                  <div className="skill-tags">
-                    {['React', 'TypeScript', 'Node.js', 'Python', 'Three.js', 'Framer Motion'].map((skill) => (
-                      <span
-                        key={skill}
-                        className="skill-tag"
-                        style={{ backgroundColor: morandiColors.secondary, color: morandiColors.dark }}
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '3rem',
+              maxWidth: '1000px',
+              margin: '0 auto 3rem auto',
+              flexWrap: 'wrap'
+            }}>
+              <p style={{ 
+                color: morandiColors.text, 
+                fontSize: '1.2rem', 
+                lineHeight: '1.8', 
+                flex: '1',
+                minWidth: '300px'
+              }}>
+                I am a Computer Science student at the University of Waterloo with a strong interest in full-stack development. I enjoy working across both frontend and backend systems, and I'm passionate about building thoughtful, user-focused applications that solve meaningful problems.
+              </p>
+              <div style={{
+                width: '200px',
+                height: '200px',
+                borderRadius: '50%',
+                overflow: 'hidden',
+                border: `3px solid ${morandiColors.primary}`,
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+                flexShrink: 0,
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <img 
+                  src="/IMG_0788_web.png" 
+                  alt="Feiyang Xu" 
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
+                  }}
+                  onError={(e) => {
+                    console.error('Image failed to load:', e);
+                    console.error('Image src:', (e.target as HTMLImageElement).src);
+                    // Hide the image and show a fallback
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    const container = target.parentElement;
+                    if (container) {
+                      container.innerHTML = '<div style="color: white; font-size: 1.2rem; text-align: center;">Profile Photo</div>';
+                    }
+                  }}
+                  onLoad={() => {
+                    console.log('Image loaded successfully');
+                    console.log('Image src:', (document.querySelector('img[alt="Feiyang Xu"]') as HTMLImageElement)?.src);
+                  }}
+                />
               </div>
-              <div className="about-image">
-                <img src="/character-icon.svg" alt="Character" className="about-character" />
-              </div>
-      </div>
+            </div>
+            <div className="resume-section">
+              <Resume colors={morandiColors} />
+            </div>
           </section>
         )}
 

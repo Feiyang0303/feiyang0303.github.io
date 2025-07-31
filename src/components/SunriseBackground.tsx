@@ -172,9 +172,9 @@ const DiamondStar: React.FC<{ position: [number, number, number]; size: number; 
           <meshStandardMaterial 
             color={color} 
             emissive={color}
-            emissiveIntensity={3.0}
+            emissiveIntensity={1.5}
             transparent
-            opacity={0.9}
+            opacity={0.6}
           />
         </mesh>
       ))}
@@ -186,9 +186,9 @@ const DiamondStar: React.FC<{ position: [number, number, number]; size: number; 
           <meshStandardMaterial 
             color="#FFFFFF" 
             emissive="#FFFFFF"
-            emissiveIntensity={2.5}
+            emissiveIntensity={1.2}
             transparent
-            opacity={0.8}
+            opacity={0.5}
           />
         </mesh>
       ))}
@@ -199,7 +199,7 @@ const DiamondStar: React.FC<{ position: [number, number, number]; size: number; 
         <meshStandardMaterial 
           color={color} 
           emissive={color}
-          emissiveIntensity={5.0}
+          emissiveIntensity={2.5}
         />
       </mesh>
       
@@ -209,7 +209,7 @@ const DiamondStar: React.FC<{ position: [number, number, number]; size: number; 
         <meshStandardMaterial 
           color="#FFFFFF" 
           emissive="#FFFFFF"
-          emissiveIntensity={4.0}
+          emissiveIntensity={2.0}
         />
       </mesh>
       
@@ -219,7 +219,7 @@ const DiamondStar: React.FC<{ position: [number, number, number]; size: number; 
         <meshStandardMaterial 
           color="#FFFFFF" 
           emissive="#FFFFFF"
-          emissiveIntensity={6.0}
+          emissiveIntensity={3.0}
         />
       </mesh>
     </group>
@@ -328,19 +328,19 @@ const GalaxyStars: React.FC<{ isTraveling: boolean }> = ({ isTraveling }) => {
     if (colorRand < 0.3) {
       // Soft beige diamonds
       color = '#D4C4B7';
-      size = Math.random() * 0.3 + 0.15;
+      size = Math.random() * 0.15 + 0.08;
     } else if (colorRand < 0.55) {
       // Light cream diamonds
       color = '#F8F6F3';
-      size = Math.random() * 0.4 + 0.2;
+      size = Math.random() * 0.2 + 0.1;
     } else if (colorRand < 0.8) {
       // Soft lavender diamonds
       color = '#E0AEE9';
-      size = Math.random() * 0.4 + 0.2;
+      size = Math.random() * 0.2 + 0.1;
     } else {
       // Dusty rose diamonds
       color = '#B8A9A9';
-      size = Math.random() * 0.4 + 0.2;
+      size = Math.random() * 0.2 + 0.1;
     }
     
     stars.push(
