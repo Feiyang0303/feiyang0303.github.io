@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import SunriseBackground from './components/SunriseBackground';
 import TypewriterEffect from './components/TypewriterEffect';
 import Resume from './components/Resume';
+import { EMAILJS_CONFIG } from './config/emailjs';
 import './App.css';
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isTraveling, setIsTraveling] = useState(false);
+  
+  // Contact form state
+  const [contactForm, setContactForm] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const morandiColors = {
     primary: '#E0AEE9',    // Soft beige
@@ -27,6 +38,151 @@ const App: React.FC = () => {
       setIsTraveling(false);
     }, 3000);
   };
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    console.log('Form submitted with data:', contactForm);
+    console.log('EmailJS Config:', EMAILJS_CONFIG);
+    console.log('Form validation check:');
+    console.log('- Name:', contactForm.name, 'Length:', contactForm.name.length, 'Trimmed:', contactForm.name.trim().length, 'Empty?', !contactForm.name.trim());
+    console.log('- Email:', contactForm.email, 'Length:', contactForm.email.length, 'Trimmed:', contactForm.email.trim().length, 'Empty?', !contactForm.email.trim());
+    console.log('- Message:', contactForm.message, 'Length:', contactForm.message.length, 'Trimmed:', contactForm.message.trim().length, 'Empty?', !contactForm.message.trim());
+    
+    // Basic validation
+    if (!contactForm.name.trim() || !contactForm.email.trim() || !contactForm.message.trim()) {
+      console.log('Validation failed - empty fields detected');
+      console.log('Name empty?', !contactForm.name.trim());
+      console.log('Email empty?', !contactForm.email.trim());
+      console.log('Message empty?', !contactForm.message.trim());
+      setSubmitStatus('error');
+      return;
+    }
+
+    console.log('Validation passed, proceeding with EmailJS...');
+
+    setIsSubmitting(true);
+    
+    // EmailJS configuration
+    const templateParams = {
+      name: contactForm.name,
+      email: contactForm.email,
+      message: contactForm.message
+    };
+
+    try {
+      // Check if EmailJS is properly configured
+      if (EMAILJS_CONFIG.SERVICE_ID === 'YOUR_SERVICE_ID' || 
+          EMAILJS_CONFIG.TEMPLATE_ID === 'YOUR_TEMPLATE_ID' || 
+          EMAILJS_CONFIG.PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
+        
+        console.log('EmailJS not configured yet, using fallback mailto method');
+        
+        // Fallback to mailto method until EmailJS is set up
+        const mailtoLink = `mailto:f82xu@uwaterloo.ca?subject=Contact from ${encodeURIComponent(contactForm.name)}&body=${encodeURIComponent(`Name: ${contactForm.name}\nEmail: ${contactForm.email}\n\nMessage:\n${contactForm.message}`)}`;
+        
+        window.location.href = mailtoLink;
+        
+        // Reset form and show success
+        setContactForm({ name: '', email: '', message: '' });
+        setSubmitStatus('success');
+        
+        // Reset status after 3 seconds
+        setTimeout(() => {
+          setSubmitStatus('idle');
+        }, 3000);
+        
+        return;
+      }
+
+      console.log('Using EmailJS to send email');
+      
+      console.log('EmailJS template params:', templateParams);
+      console.log('Sending to EmailJS with:');
+      console.log('- Service ID:', EMAILJS_CONFIG.SERVICE_ID);
+      console.log('- Template ID:', EMAILJS_CONFIG.TEMPLATE_ID);
+      console.log('- Public Key:', EMAILJS_CONFIG.PUBLIC_KEY);
+
+      // Send email using EmailJS
+      try {
+        const result = await emailjs.send(
+          EMAILJS_CONFIG.SERVICE_ID,
+          EMAILJS_CONFIG.TEMPLATE_ID,
+          templateParams,
+          EMAILJS_CONFIG.PUBLIC_KEY
+        );
+
+        console.log('EmailJS result:', result);
+
+        if (result.status === 200) {
+          console.log('✅ Email sent successfully! Check your inbox and spam folder.');
+          console.log('📧 Email should be sent to: feiyangxuca@gmail.com');
+          console.log('📋 Template used: template_92rs3o9');
+          console.log('🔗 Service used: service_2qfjuv6 (Gmail)');
+          console.log('📨 EmailJS response:', result);
+          console.log('💡 If you don\'t receive the email:');
+          console.log('   1. Check your Gmail inbox at feiyangxuca@gmail.com');
+          console.log('   2. Check Gmail spam/junk folder');
+          console.log('   3. Check Gmail "All Mail" folder');
+          console.log('   4. Check Gmail filters and settings');
+          console.log('   5. Template variables should be: {{name}}, {{email}}, {{message}}');
+          // Reset form and show success
+          setContactForm({ name: '', email: '', message: '' });
+          setSubmitStatus('success');
+          
+          // Reset status after 3 seconds
+          setTimeout(() => {
+            setSubmitStatus('idle');
+          }, 3000);
+        } else {
+          console.error('EmailJS returned non-200 status:', result.status);
+          setSubmitStatus('error');
+        }
+      } catch (emailjsError) {
+        console.error('EmailJS specific error:', emailjsError);
+        throw emailjsError; // Re-throw to be caught by outer catch
+      }
+      
+    } catch (error: any) {
+      console.error('Email sending failed:', error);
+      console.error('Error details:', {
+        message: error.message || 'Unknown error',
+        stack: error.stack || 'No stack trace',
+        config: EMAILJS_CONFIG,
+        status: error.status,
+        text: error.text,
+        response: error.response
+      });
+      
+      // Check for specific EmailJS errors
+      if (error.status === 422) {
+        console.error('422 Error - This usually means template variables mismatch or invalid data');
+        console.error('Template variables expected by EmailJS:', templateParams);
+      }
+      
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    console.log(`Updating ${field}:`, value);
+    setContactForm(prev => {
+      const newState = {
+        ...prev,
+        [field]: value
+      };
+      console.log('New form state:', newState);
+      return newState;
+    });
+  };
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+    console.log('EmailJS initialized with public key:', EMAILJS_CONFIG.PUBLIC_KEY);
+  }, []);
 
   const sections = [
     { id: 'home', title: 'Home' },
@@ -381,7 +537,45 @@ const App: React.FC = () => {
                   fontWeight: '600',
                   textAlign: 'center'
                 }}>Send me a message</h3>
-                <form style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+                
+                {/* Status Messages */}
+                {submitStatus === 'success' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    style={{
+                      padding: '1rem',
+                      borderRadius: '12px',
+                      backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                      border: '1px solid rgba(76, 175, 80, 0.5)',
+                      color: '#4CAF50',
+                      textAlign: 'center',
+                      marginBottom: '1rem'
+                    }}
+                  >
+                    ✨ Message sent successfully! I'll get back to you soon.
+                  </motion.div>
+                )}
+                
+                {submitStatus === 'error' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    style={{
+                      padding: '1rem',
+                      borderRadius: '12px',
+                      backgroundColor: 'rgba(244, 67, 54, 0.2)',
+                      border: '1px solid rgba(244, 67, 54, 0.5)',
+                      color: '#F44336',
+                      textAlign: 'center',
+                      marginBottom: '1rem'
+                    }}
+                  >
+                    ❌ Please fill in all fields correctly.
+                  </motion.div>
+                )}
+                
+                <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
                   <div>
                     <label style={{ 
                       display: 'block', 
@@ -389,20 +583,32 @@ const App: React.FC = () => {
                       color: morandiColors.dark,
                       fontWeight: '500',
                       fontSize: '0.9rem'
-                    }}>Name</label>
+                    }}>Name *</label>
                     <input
                       type="text"
                       placeholder="Your name"
+                      value={contactForm.name}
+                      onChange={(e) => handleInputChange('name', e.target.value)}
+                      required
                       style={{
                         width: '100%',
                         padding: '1rem',
                         borderRadius: '12px',
                         border: `2px solid ${morandiColors.primary}`,
                         backgroundColor: 'rgba(248, 246, 243, 0.6)',
-                        color: morandiColors.dark,
+                        color: '#2c3e50',
                         fontSize: '1rem',
                         backdropFilter: 'blur(10px)',
-                        transition: 'all 0.3s ease'
+                        transition: 'all 0.3s ease',
+                        outline: 'none'
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = morandiColors.accent;
+                        e.target.style.boxShadow = `0 0 0 3px rgba(104, 93, 194, 0.1)`;
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = morandiColors.primary;
+                        e.target.style.boxShadow = 'none';
                       }}
                     />
                   </div>
@@ -413,20 +619,32 @@ const App: React.FC = () => {
                       color: morandiColors.dark,
                       fontWeight: '500',
                       fontSize: '0.9rem'
-                    }}>Email</label>
+                    }}>Email *</label>
                     <input
                       type="email"
                       placeholder="Your email"
+                      value={contactForm.email}
+                      onChange={(e) => handleInputChange('email', e.target.value)}
+                      required
                       style={{
                         width: '100%',
                         padding: '1rem',
                         borderRadius: '12px',
                         border: `2px solid ${morandiColors.primary}`,
                         backgroundColor: 'rgba(248, 246, 243, 0.6)',
-                        color: morandiColors.dark,
+                        color: '#2c3e50',
                         fontSize: '1rem',
                         backdropFilter: 'blur(10px)',
-                        transition: 'all 0.3s ease'
+                        transition: 'all 0.3s ease',
+                        outline: 'none'
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = morandiColors.accent;
+                        e.target.style.boxShadow = `0 0 0 3px rgba(104, 93, 194, 0.1)`;
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = morandiColors.primary;
+                        e.target.style.boxShadow = 'none';
                       }}
                     />
                   </div>
@@ -437,44 +655,56 @@ const App: React.FC = () => {
                       color: morandiColors.dark,
                       fontWeight: '500',
                       fontSize: '0.9rem'
-                    }}>Message</label>
+                    }}>Message *</label>
                     <textarea
-                      placeholder="Tell me about your project or opportunity..."
-                      rows={4}
+                      placeholder="Feel free to reach out to me!"
+                      value={contactForm.message}
+                      onChange={(e) => handleInputChange('message', e.target.value)}
+                      required
                       style={{
                         width: '100%',
                         padding: '1rem',
                         borderRadius: '12px',
                         border: `2px solid ${morandiColors.primary}`,
                         backgroundColor: 'rgba(248, 246, 243, 0.6)',
-                        color: morandiColors.dark,
+                        color: '#2c3e50',
                         fontSize: '1rem',
                         resize: 'vertical',
                         backdropFilter: 'blur(10px)',
                         fontFamily: 'inherit',
-                        transition: 'all 0.3s ease'
+                        transition: 'all 0.3s ease',
+                        outline: 'none'
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = morandiColors.accent;
+                        e.target.style.boxShadow = `0 0 0 3px rgba(104, 93, 194, 0.1)`;
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = morandiColors.primary;
+                        e.target.style.boxShadow = 'none';
                       }}
                     />
                   </div>
                   <motion.button
                     type="submit"
-                    whileHover={{ scale: 1.02, boxShadow: '0 8px 25px rgba(104, 93, 194, 0.3)' }}
-                    whileTap={{ scale: 0.98 }}
+                    disabled={isSubmitting}
+                    whileHover={!isSubmitting ? { scale: 1.02, boxShadow: '0 8px 25px rgba(104, 93, 194, 0.3)' } : {}}
+                    whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                     style={{
                       padding: '1rem 2rem',
                       borderRadius: '12px',
                       border: 'none',
-                      backgroundColor: 'rgba(104, 93, 194, 0.9)',
+                      backgroundColor: isSubmitting ? 'rgba(104, 93, 194, 0.5)' : 'rgba(104, 93, 194, 0.9)',
                       color: morandiColors.light,
                       fontSize: '1rem',
                       fontWeight: '600',
-                      cursor: 'pointer',
+                      cursor: isSubmitting ? 'not-allowed' : 'pointer',
                       transition: 'all 0.3s ease',
                       marginTop: '0.5rem',
                       boxShadow: '0 4px 15px rgba(104, 93, 194, 0.2)'
                     }}
                   >
-                    Send Message ✨
+                    {isSubmitting ? 'Sending...' : 'Send Message ✨'}
                   </motion.button>
                 </form>
               </div>
