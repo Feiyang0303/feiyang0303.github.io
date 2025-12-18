@@ -620,10 +620,8 @@ body {
 
   .nav-links {
     display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
+    position: relative;
+    width: 100%;
     flex-direction: column;
     background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(20px);
@@ -631,6 +629,7 @@ body {
     gap: 0.5rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 0.5rem;
   }
 
   .nav-links.mobile-open {
@@ -777,56 +776,106 @@ body {
 
   .contact-section {
     padding: 2rem 0;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .contact-section h2 {
     font-size: 2rem;
     margin-bottom: 2rem;
+    text-align: center;
   }
 
   .contact-content {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+    gap: 2.5rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .contact-info {
     text-align: center;
+    width: 100%;
+    order: 1;
   }
 
   .contact-info p {
     font-size: 1rem;
     margin-bottom: 1.5rem;
+    line-height: 1.7;
+    padding: 0 0.5rem;
   }
 
   .contact-methods {
     justify-content: center;
     flex-wrap: wrap;
     gap: 0.75rem;
+    width: 100%;
   }
 
   .contact-link {
     padding: 0.75rem 1.25rem;
     font-size: 0.95rem;
     min-height: 44px; /* Better touch target */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .contact-form {
     padding: 1.5rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    order: 2;
+    margin: 0 auto;
   }
 
   .contact-form h3 {
     font-size: 1.3rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .contact-form form {
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .contact-form input,
   .contact-form textarea {
-    font-size: 16px; /* Prevents zoom on iOS */
-    padding: 0.875rem;
-    min-height: 44px; /* Better touch target */
+    font-size: 16px !important; /* Prevents zoom on iOS */
+    padding: 0.875rem !important;
+    min-height: 44px !important; /* Better touch target */
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    border-radius: 12px !important;
   }
 
   .contact-form textarea {
-    min-height: 120px;
+    min-height: 120px !important;
+    resize: vertical;
+    font-family: inherit;
+  }
+
+  .contact-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .contact-form button {
+    width: 100%;
+    padding: 0.875rem;
+    font-size: 1rem;
+    min-height: 48px;
+    margin-top: 0.5rem;
+    box-sizing: border-box;
   }
 }
 
@@ -932,40 +981,85 @@ body {
     font-size: 0.7rem;
   }
 
+  .contact-section {
+    padding: 1.5rem 0;
+  }
+
+  .contact-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-content {
+    gap: 2rem;
+    padding: 0;
+  }
+
+  .contact-info {
+    padding: 0 0.5rem;
+  }
+
   .contact-info p {
     font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+  }
+
+  .contact-methods {
+    gap: 0.625rem;
   }
 
   .contact-link {
     padding: 0.625rem 1rem;
     font-size: 0.9rem;
-    width: 100%;
-    max-width: 200px;
+    min-width: 100px;
+    flex: 1;
+    max-width: 150px;
     text-align: center;
   }
 
   .contact-form {
     padding: 1.25rem;
+    margin: 0;
+    border-radius: 16px;
   }
 
   .contact-form h3 {
     font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .contact-form form {
+    gap: 0.875rem;
   }
 
   .contact-form label {
     font-size: 0.85rem;
+    margin-bottom: 0.4rem;
   }
 
   .contact-form input,
   .contact-form textarea {
-    font-size: 16px; /* Prevents zoom on iOS */
-    padding: 0.75rem;
+    font-size: 16px !important; /* Prevents zoom on iOS */
+    padding: 0.75rem !important;
+    border-radius: 10px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+  }
+
+  .contact-form textarea {
+    min-height: 100px !important;
   }
 
   .contact-form button {
     width: 100%;
     padding: 0.875rem;
     font-size: 0.95rem;
+    min-height: 48px;
+    border-radius: 10px;
   }
 }
 
@@ -1026,6 +1120,27 @@ body {
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* iPhone specific fixes */
+@supports (-webkit-touch-callout: none) {
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 16px !important;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  
+  .contact-section {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .contact-content {
+    display: flex !important;
+    flex-direction: column !important;
+  }
 }
 
 /* Custom scrollbar */

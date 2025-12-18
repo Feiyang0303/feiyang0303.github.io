@@ -494,14 +494,7 @@ const App: React.FC = () => {
         {activeSection === 'contact' && (
           <section className="contact-section">
             <h2 style={{ color: morandiColors.dark }}>Get In Touch</h2>
-            <div className="contact-content" style={{ 
-              display: 'grid', 
-              gridTemplateColumns: '1fr 1fr', 
-              gap: '3rem',
-              alignItems: 'start',
-              width: '100%',
-              boxSizing: 'border-box'
-            }}>
+            <div className="contact-content">
               <div className="contact-info">
                 <p style={{ color: morandiColors.text, fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '2rem' }}>
                   I'm always interested in new opportunities and exciting projects. 
