@@ -10,6 +10,7 @@ import './App.css';
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isTraveling, setIsTraveling] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   // Contact form state
   const [contactForm, setContactForm] = useState({
@@ -203,7 +204,10 @@ const App: React.FC = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
           style={{ cursor: 'pointer' }}
-          onClick={() => setActiveSection('home')}
+          onClick={() => {
+            setActiveSection('home');
+            setIsMobileMenuOpen(false);
+          }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -211,8 +215,21 @@ const App: React.FC = () => {
           <span style={{ color: morandiColors.dark }}>Feiyang Xu</span>
         </motion.div>
         
+        {/* Mobile Menu Button */}
+        <button
+          className="mobile-menu-button"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span className={`hamburger ${isMobileMenuOpen ? 'open' : ''}`}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+        
         <motion.ul 
-          className="nav-links"
+          className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -225,7 +242,10 @@ const App: React.FC = () => {
             >
               <button
                 className={`nav-link ${activeSection === section.id ? 'active' : ''}`}
-                onClick={() => setActiveSection(section.id)}
+                onClick={() => {
+                  setActiveSection(section.id);
+                  setIsMobileMenuOpen(false);
+                }}
                 style={{
                   color: activeSection === section.id ? morandiColors.dark : morandiColors.text,
                   backgroundColor: activeSection === section.id ? morandiColors.primary : 'transparent'
@@ -280,26 +300,30 @@ const App: React.FC = () => {
         {activeSection === 'about' && (
           <section className="about-section">
             <h2 style={{ color: morandiColors.dark }}>About Me</h2>
-            <div style={{ 
+            <div className="about-content-wrapper" style={{ 
               display: 'flex', 
               alignItems: 'center', 
               gap: '3rem',
               maxWidth: '1000px',
               margin: '0 auto 3rem auto',
-              flexWrap: 'wrap'
+              flexWrap: 'wrap',
+              justifyContent: 'center'
             }}>
               <p style={{ 
                 color: morandiColors.text, 
                 fontSize: '1.2rem', 
                 lineHeight: '1.8', 
                 flex: '1',
-                minWidth: '300px'
+                minWidth: 'min(300px, 100%)',
+                textAlign: 'left'
               }}>
                 I am a Computer Science student at the University of Waterloo with a strong interest in full-stack development. I enjoy working across both frontend and backend systems, and I'm passionate about building thoughtful, user-focused applications that solve meaningful problems.
               </p>
-              <div style={{
+              <div className="profile-image-container" style={{
                 width: '200px',
                 height: '200px',
+                minWidth: '150px',
+                maxWidth: '200px',
                 borderRadius: '50%',
                 overflow: 'hidden',
                 border: `3px solid ${morandiColors.primary}`,
@@ -308,7 +332,8 @@ const App: React.FC = () => {
                 backgroundColor: 'rgba(255, 255, 255, 0.1)',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                margin: '0 auto'
               }}>
                 <img 
                   src="/IMG_0788_web.png" 
@@ -473,7 +498,9 @@ const App: React.FC = () => {
               display: 'grid', 
               gridTemplateColumns: '1fr 1fr', 
               gap: '3rem',
-              alignItems: 'start'
+              alignItems: 'start',
+              width: '100%',
+              boxSizing: 'border-box'
             }}>
               <div className="contact-info">
                 <p style={{ color: morandiColors.text, fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '2rem' }}>

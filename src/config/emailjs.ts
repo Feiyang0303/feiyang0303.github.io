@@ -7,7 +7,7 @@ export const EMAILJS_CONFIG = {
   PUBLIC_KEY: '1cglWwC8Mp7fiUqF4' // Your EmailJS public key
 };
 
-// Initialize EmailJS
+// Initialize§ EmailJS
 export const initEmailJS = () => {
   // This will be called when the app starts
   // EmailJS will be initialized automatically when you use it

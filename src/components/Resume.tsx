@@ -48,11 +48,13 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
           Education
         </h2>
         <div style={{ marginBottom: '1rem' }}>
-          <div style={{ 
+          <div className="resume-item-header" style={{ 
             display: 'flex', 
             justifyContent: 'space-between', 
             alignItems: 'flex-start',
-            marginBottom: '0.5rem'
+            marginBottom: '0.5rem',
+            flexWrap: 'wrap',
+            gap: '0.5rem'
           }}>
             <div>
               <h3 style={{ color: colors.dark, fontSize: '1.1rem', margin: 0 }}>
@@ -62,7 +64,7 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
                 Bachelor of Computer Science
               </p>
             </div>
-            <span style={{ color: colors.text, fontSize: '0.9rem' }}>
+            <span style={{ color: colors.text, fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
               Anticipated Graduation: April 2030
             </span>
           </div>
@@ -84,11 +86,13 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
         </h2>
         
         <div style={{ marginBottom: '1.5rem' }}>
-          <div style={{ 
+          <div className="resume-item-header" style={{ 
             display: 'flex', 
             justifyContent: 'space-between', 
             alignItems: 'flex-start',
-            marginBottom: '0.5rem'
+            marginBottom: '0.5rem',
+            flexWrap: 'wrap',
+            gap: '0.5rem'
           }}>
             <div>
               <h3 style={{ color: colors.dark, fontSize: '1.1rem', margin: 0 }}>
@@ -98,7 +102,7 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
                 Yangzhou University
               </p>
             </div>
-            <span style={{ color: colors.text, fontSize: '0.9rem' }}>
+            <span style={{ color: colors.text, fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
               December 2024 - Present
             </span>
           </div>
@@ -115,11 +119,13 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
         </div>
 
         <div style={{ marginBottom: '1.5rem' }}>
-          <div style={{ 
+          <div className="resume-item-header" style={{ 
             display: 'flex', 
             justifyContent: 'space-between', 
             alignItems: 'flex-start',
-            marginBottom: '0.5rem'
+            marginBottom: '0.5rem',
+            flexWrap: 'wrap',
+            gap: '0.5rem'
           }}>
             <div>
               <h3 style={{ color: colors.dark, fontSize: '1.1rem', margin: 0 }}>
@@ -129,7 +135,7 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
                 VolunTrack Non-Profit Organization
               </p>
             </div>
-            <span style={{ color: colors.text, fontSize: '0.9rem' }}>
+            <span style={{ color: colors.text, fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
               January 2023 - Present
             </span>
           </div>
@@ -181,7 +187,7 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
         }}>
           Technical Skills
         </h2>
-        <div style={{ 
+        <div className="resume-skills-grid" style={{ 
           display: 'grid', 
           gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
           gap: '1rem'
