@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useMemo } from 'react';
 import * as THREE from 'three';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { Canvas } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 
@@ -34,14 +34,12 @@ const Spaceship: React.FC<{ onClick: () => void; isTraveling: boolean }> = ({ on
       // Boost effect when traveling
       if (isTraveling) {
         setIsBoosting(true);
-        // Move forward and up during boost
-        groupRef.current.position.z += 0.2;
-        groupRef.current.rotation.z += 0.05;
-        // Tilt upward during boost
-        groupRef.current.rotation.x = -0.3;
-        // Keep Y position at bottom during boost
-        groupRef.current.position.y = -8;
-        groupRef.current.position.x = floatOffset;
+        groupRef.current.position.z += 0.45;
+        groupRef.current.rotation.z += 0.12;
+        groupRef.current.rotation.x = -0.55;
+        groupRef.current.position.y = -8 + Math.sin(timeRef.current * 3) * 0.15;
+        groupRef.current.position.x = floatOffset * 0.3;
+        groupRef.current.rotation.y += 0.025;
       } else {
         setIsBoosting(false);
         // Smoothly return to original position and rotation
@@ -89,28 +87,36 @@ const Spaceship: React.FC<{ onClick: () => void; isTraveling: boolean }> = ({ on
       {/* Boost effect - engine exhaust */}
       {isBoosting && (
         <group position={[0, -2, 0]}>
-          {/* Main exhaust plume */}
-          <mesh position={[0, -1, 0]} scale={[1, 2, 1]}>
-            <coneGeometry args={[0.5, 2, 8]} />
+          <pointLight color="#FF8C42" intensity={4} distance={12} position={[0, -2, 0]} />
+          <mesh position={[0, -1.2, 0]} scale={[1.2, 3, 1.2]}>
+            <coneGeometry args={[0.6, 3, 8]} />
             <meshStandardMaterial 
-              color="#FF6B35" 
+              color="#FF4500" 
               emissive="#FF6B35"
-              emissiveIntensity={2.0}
+              emissiveIntensity={3.0}
               transparent
-              opacity={0.8}
+              opacity={0.9}
             />
           </mesh>
-          
-          {/* Secondary exhaust rings */}
-          {[1, 2, 3].map((i) => (
-            <mesh key={i} position={[0, -1 - i * 0.5, 0]} scale={[1 + i * 0.2, 0.2, 1 + i * 0.2]}>
-              <torusGeometry args={[0.3, 0.1, 8, 16]} />
+          <mesh position={[0, -2.5, 0]} scale={[0.8, 2.5, 0.8]}>
+            <coneGeometry args={[0.4, 2.5, 8]} />
+            <meshStandardMaterial 
+              color="#FFD700" 
+              emissive="#FFD700"
+              emissiveIntensity={2.5}
+              transparent
+              opacity={0.7}
+            />
+          </mesh>
+          {[1, 2, 3, 4, 5].map((i) => (
+            <mesh key={i} position={[0, -1 - i * 0.6, 0]} scale={[1 + i * 0.25, 0.25, 1 + i * 0.25]}>
+              <torusGeometry args={[0.35, 0.08, 8, 16]} />
               <meshStandardMaterial 
-                color="#FFD700" 
-                emissive="#FFD700"
-                emissiveIntensity={1.5}
+                color={i % 2 === 0 ? '#FFD700' : '#FF6B35'}
+                emissive={i % 2 === 0 ? '#FFD700' : '#FF6B35'}
+                emissiveIntensity={2.0}
                 transparent
-                opacity={0.6}
+                opacity={0.7 - i * 0.08}
               />
             </mesh>
           ))}
@@ -136,13 +142,93 @@ const Spaceship: React.FC<{ onClick: () => void; isTraveling: boolean }> = ({ on
         <meshStandardMaterial 
           color="#E8D5C4" 
           transparent
-          opacity={0.15}
-          emissive="#E8D5C4"
-          emissiveIntensity={0.2}
+          opacity={isBoosting ? 0.35 : 0.15}
+          emissive={isBoosting ? '#FFD700' : '#E8D5C4'}
+          emissiveIntensity={isBoosting ? 0.8 : 0.2}
         />
       </mesh>
     </group>
   );
+};
+
+// Warp-speed streak particles during hyperspace
+const WarpStreaks: React.FC<{ isTraveling: boolean }> = ({ isTraveling }) => {
+  const streakRef = useRef<THREE.Points>(null);
+  const streakCount = 150;
+
+  const { geometry, speeds } = useMemo(() => {
+    const positions = new Float32Array(streakCount * 3);
+    const speedArr = new Float32Array(streakCount);
+    for (let i = 0; i < streakCount; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 40;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 30 - 4;
+      positions[i * 3 + 2] = -Math.random() * 80 - 10;
+      speedArr[i] = 1.5 + Math.random() * 2.5;
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    return { geometry: geo, speeds: speedArr };
+  }, []);
+
+  useFrame((_, delta) => {
+    if (!streakRef.current) return;
+    const positions = streakRef.current.geometry.attributes.position.array as Float32Array;
+    const visible = isTraveling;
+
+    streakRef.current.visible = visible;
+    if (!visible) return;
+
+    for (let i = 0; i < streakCount; i++) {
+      positions[i * 3 + 2] += speeds[i] * delta * 60;
+      if (positions[i * 3 + 2] > 25) {
+        positions[i * 3] = (Math.random() - 0.5) * 40;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 30 - 4;
+        positions[i * 3 + 2] = -Math.random() * 60 - 20;
+      }
+    }
+    streakRef.current.geometry.attributes.position.needsUpdate = true;
+  });
+
+  return (
+    <points ref={streakRef} visible={false} geometry={geometry}>
+      <pointsMaterial
+        size={0.25}
+        color="#FFFFFF"
+        transparent
+        opacity={0.85}
+        sizeAttenuation
+        blending={THREE.AdditiveBlending}
+        depthWrite={false}
+      />
+    </points>
+  );
+};
+
+// Camera warp effect during travel
+const CameraRig: React.FC<{ isTraveling: boolean }> = ({ isTraveling }) => {
+  const { camera } = useThree();
+  const shakeRef = useRef(0);
+
+  useFrame(() => {
+    if (!(camera instanceof THREE.PerspectiveCamera)) return;
+
+    if (isTraveling) {
+      shakeRef.current += 0.3;
+      const shake = Math.sin(shakeRef.current * 12) * 0.08;
+      camera.position.x = shake;
+      camera.position.y = shake * 0.5;
+      camera.position.z = THREE.MathUtils.lerp(camera.position.z, 11, 0.06);
+      camera.fov = THREE.MathUtils.lerp(camera.fov, 100, 0.06);
+    } else {
+      camera.position.x = THREE.MathUtils.lerp(camera.position.x, 0, 0.05);
+      camera.position.y = THREE.MathUtils.lerp(camera.position.y, 0, 0.05);
+      camera.position.z = THREE.MathUtils.lerp(camera.position.z, 15, 0.04);
+      camera.fov = THREE.MathUtils.lerp(camera.fov, 75, 0.04);
+    }
+    camera.updateProjectionMatrix();
+  });
+
+  return null;
 };
 
 // Diamond-like star with real light rays (光芒)
@@ -296,17 +382,16 @@ const GalaxyStars: React.FC<{ isTraveling: boolean }> = ({ isTraveling }) => {
               setShootingPhase('spreading');
             }
           } else if (shootingPhase === 'spreading') {
-            // Stars spread out from center and continue the effect for the full boost duration
             const elapsedTime = timeRef.current - boostStartTime;
-            const spreadProgress = Math.min((elapsedTime - 2) * 0.125, 1); // 0.125 = 8 seconds duration for spreading
-            const spreadDistance = 100;
+            const spreadProgress = Math.min((elapsedTime - 1.5) * 0.2, 1);
+            const spreadDistance = 140;
             const angle = (index / originalPositions.length) * Math.PI * 2;
             const radius = spreadDistance * spreadProgress;
             
             targetPos = [
               Math.cos(angle) * radius,
-              -8 + Math.sin(angle) * radius * 0.5,
-              Math.sin(angle) * radius * 0.3
+              -8 + Math.sin(angle) * radius * 0.6,
+              Math.sin(angle) * radius * 0.5 - spreadProgress * 30
             ];
           } else {
             // Normal floating animation
@@ -320,7 +405,8 @@ const GalaxyStars: React.FC<{ isTraveling: boolean }> = ({ isTraveling }) => {
           }
           
           // Smooth position transition
-          child.position.lerp(new THREE.Vector3(...targetPos), 0.1);
+          const lerpSpeed = shootingPhase === 'normal' ? 0.1 : 0.18;
+          child.position.lerp(new THREE.Vector3(...targetPos), lerpSpeed);
         }
       });
     }
@@ -561,6 +647,9 @@ const SunriseBackground: React.FC<{ isTraveling: boolean; onSpaceshipClick: () =
           color="#B8A9A9"
           distance={40}
         />
+
+        <CameraRig isTraveling={isTraveling} />
+        <WarpStreaks isTraveling={isTraveling} />
         
         <MagicalScene isTraveling={isTraveling} onSpaceshipClick={onSpaceshipClick} />
       </Canvas>

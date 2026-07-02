@@ -36,7 +36,7 @@ const App: React.FC = () => {
     setIsTraveling(true);
     setTimeout(() => {
       setIsTraveling(false);
-    }, 3000);
+    }, 4500);
   };
 
   const handleViewWorkClick = () => {

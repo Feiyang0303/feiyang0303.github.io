@@ -112,7 +112,8 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
             margin: '0.5rem 0',
             paddingLeft: '1.5rem'
           }}>
-            <li>Built GitHub webhook integrations and CI/CD tooling (Node.js, Jenkins, Octopus Deploy) to automate deployments and reduce manual release coordination</li>
+            <li>Built GitHub webhook integrations and CI/CD tooling (Node.js, Jenkins, Octopus Deploy) to automate deployments for Xello's college and career readiness platform</li>
+            <li>Supported reliable release pipelines for a product serving K-12 schools and daily student users across North America</li>
           </ul>
         </div>
 
@@ -175,7 +176,8 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
             margin: '0.5rem 0',
             paddingLeft: '1.5rem'
           }}>
-            <li>Built a multi-agent NLP pipeline with 11 specialized LLM agents for long-context literature parsing and A/B evaluation studies</li>
+            <li>Architected a multi-agent NLP pipeline orchestrating 11 specialized LLM agents for long-context literature parsing via deterministic Python execution graphs</li>
+            <li>Engineered A/B evaluation pipelines to collect user feedback and iteratively tune prompts and generation parameters for production-quality output</li>
           </ul>
         </div>
 
@@ -206,7 +208,7 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
             margin: '0.5rem 0',
             paddingLeft: '1.5rem'
           }}>
-            <li>Delivered a production-grade C# and WPF desktop application to automate electrical grid fault location analysis and safety triage</li>
+            <li>Delivered a production-grade C# and WPF desktop application used by utility operators to automate critical grid fault location, safety triage, and real-time telemetry analysis</li>
           </ul>
         </div>
       </div>
