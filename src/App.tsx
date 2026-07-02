@@ -740,6 +740,12 @@ const App: React.FC = () => {
           </section>
         )}
       </motion.main>
+      <button
+        type="button"
+        className="spaceship-hitzone"
+        onClick={handleSpaceshipClick}
+        aria-label="Launch spaceship"
+      />
       </div>
     </div>
   );

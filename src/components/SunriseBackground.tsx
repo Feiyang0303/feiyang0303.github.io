@@ -515,7 +515,7 @@ const SunriseBackground: React.FC<{ isTraveling: boolean; onSpaceshipClick: () =
       width: '100vw',
       height: '100vh',
       zIndex: 0,
-      pointerEvents: 'auto'
+      pointerEvents: 'none'
     }}>
       <Canvas
         camera={{ position: [0, 0, 15], fov: 75 }}

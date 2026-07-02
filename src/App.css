@@ -32,7 +32,7 @@ body {
   pointer-events: auto;
 }
 
-.main-content {
+.content-overlay > .main-content {
   pointer-events: none;
 }
 
@@ -50,8 +50,31 @@ body {
   pointer-events: auto;
 }
 
-/* Navigation */
-.navbar {
+.spaceship-hitzone {
+  position: fixed;
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(280px, 42vw);
+  height: min(200px, 28vh);
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 20;
+}
+
+.spaceship-hitzone:focus {
+  outline: none;
+}
+
+.spaceship-hitzone:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 4px;
+  border-radius: 999px;
+}
+
   display: flex;
   justify-content: space-between;
   align-items: center;

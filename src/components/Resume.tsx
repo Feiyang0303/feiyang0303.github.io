@@ -175,9 +175,7 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
             margin: '0.5rem 0',
             paddingLeft: '1.5rem'
           }}>
-            <li>Architected an asynchronous, multi-agent NLP orchestration pipeline for long-context literature parsing, orchestrating 11 specialized LLM agent handoffs via deterministic Python execution graphs</li>
-            <li>Engineered automated empirical data collection engines for A/B user evaluation studies, compiling high-dimensional textual evaluation datasets to iteratively tune system prompts and generation parameters</li>
-            <li>Deployed secure analytical data pipelines to sanitize, aggregate, and evaluate Likert-scale metrics and context screening filters, guaranteeing high-fidelity ground truth sets for model evaluation</li>
+            <li>Built a multi-agent NLP pipeline with 11 specialized LLM agents for long-context literature parsing and A/B evaluation studies</li>
           </ul>
         </div>
 
