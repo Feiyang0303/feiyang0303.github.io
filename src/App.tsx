@@ -394,18 +394,18 @@ const App: React.FC = () => {
                   image: '/capyspend.png'
                 },
                 {
-                  title: 'Starduo',
-                  description: 'A React Native app for friends and couples to connect, built with Expo and TypeScript',
-                  tech: ['JavaScript', 'React', 'Expo', 'TypeScript'],
-                  link: 'https://github.com/starlyze/starduo',
-                  image: '/starduo.png'
-                },
-                {
-                  title: 'VolunTrack',
-                  description: 'As President of VolunTrack, leading a team dedicated to connecting volunteers and non-profit organizations through an efficient search engine across iOS, Android, and web platforms.',
-                  tech: ['JavaScript', 'React Native', 'Mobile Development', 'Cross-platform', 'Search Engine', 'Leadership'],
-                  link: 'https://github.com/Feiyang0303/VolunTrack_Mobile/tree/feiyang',
-                  image: '/voluntrack.png'
+                  title: 'Diffusion Watermarking',
+                  description: 'Research implementation of Tree-Ring and WatermarkDM approaches for invisible, robust fingerprinting in diffusion-generated images, with evaluation pipelines for JPEG compression and adversarial attacks.',
+                  tech: ['Python', 'PyTorch', 'NumPy', 'Stable Diffusion', 'Signal Processing'],
+                  link: 'https://github.com/Feiyang0303/Diffusion_watermarking',
+                  image: (
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+                      <circle cx="12" cy="12" r="6" stroke="currentColor" strokeWidth="1.5"/>
+                      <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.5"/>
+                      <path d="M12 6V3M12 21V18M6 12H3M21 12H18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                  )
                 }
               ].map((project, index) => (
                 <div

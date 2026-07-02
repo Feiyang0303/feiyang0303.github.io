@@ -65,7 +65,7 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
               </p>
             </div>
             <span style={{ color: colors.text, fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
-              Anticipated Graduation: April 2030
+              Anticipated Graduation: April 2029
             </span>
           </div>
         </div>
@@ -96,14 +96,14 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
           }}>
             <div>
               <h3 style={{ color: colors.dark, fontSize: '1.1rem', margin: 0 }}>
-                Research Assistant
+                DevOps Engineering Intern
               </h3>
               <p style={{ color: colors.text, fontSize: '0.9rem', margin: '0.2rem 0' }}>
-                Yangzhou University
+                Xello Inc. · Toronto, ON
               </p>
             </div>
             <span style={{ color: colors.text, fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
-              December 2024 - Present
+              May 2026 – Present
             </span>
           </div>
           <ul style={{ 
@@ -112,9 +112,7 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
             margin: '0.5rem 0',
             paddingLeft: '1.5rem'
           }}>
-            <li>Conduct research under Professor Qiang on natural language processing and text simplification for educational use</li>
-            <li>Develop a multi-agent prompt framework using large language models, simulating expert roles to adapt complex texts into age-appropriate scripts</li>
-            <li>Designed and implemented an AI-powered audio novel system that transforms classical literature into simplified, child-friendly audio stories</li>
+            <li>Built GitHub webhook integrations and CI/CD tooling (Node.js, Jenkins, Octopus Deploy) to automate deployments and reduce manual release coordination</li>
           </ul>
         </div>
 
@@ -129,14 +127,14 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
           }}>
             <div>
               <h3 style={{ color: colors.dark, fontSize: '1.1rem', margin: 0 }}>
-                President
+                Undergraduate Research Assistant (ML Engineering)
               </h3>
               <p style={{ color: colors.text, fontSize: '0.9rem', margin: '0.2rem 0' }}>
-                VolunTrack Non-Profit Organization
+                University of Waterloo (Supervisor: Prof. Justin Wan) · Waterloo, ON
               </p>
             </div>
             <span style={{ color: colors.text, fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
-              January 2023 - Present
+              Feb 2026 – Present
             </span>
           </div>
           <ul style={{ 
@@ -145,13 +143,77 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
             margin: '0.5rem 0',
             paddingLeft: '1.5rem'
           }}>
-            <li>Lead a global, student-run nonprofit that connects youth with verified volunteer opportunities through a mobile and web platform</li>
-            <li>Managed the end-to-end development of the VolunTrack app using React Native, Firebase, and Expo, with AI-powered personalized opportunity recommendations</li>
+            <li>Conduct research on latent diffusion watermarking robustness under Prof. Justin Wan, designing controlled perturbation experiments to measure detection fidelity across adversarial conditions</li>
+            <li>Contribute reproducible benchmark protocols, statistical analysis, and experimental documentation toward publication on generative model provenance</li>
+          </ul>
+        </div>
+
+        <div style={{ marginBottom: '1.5rem' }}>
+          <div className="resume-item-header" style={{ 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'flex-start',
+            marginBottom: '0.5rem',
+            flexWrap: 'wrap',
+            gap: '0.5rem'
+          }}>
+            <div>
+              <h3 style={{ color: colors.dark, fontSize: '1.1rem', margin: 0 }}>
+                Research Assistant (Applied AI)
+              </h3>
+              <p style={{ color: colors.text, fontSize: '0.9rem', margin: '0.2rem 0' }}>
+                Yangzhou University · Remote
+              </p>
+            </div>
+            <span style={{ color: colors.text, fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
+              Dec 2024 – Jul 2025
+            </span>
+          </div>
+          <ul style={{ 
+            color: colors.text, 
+            fontSize: '0.9rem', 
+            margin: '0.5rem 0',
+            paddingLeft: '1.5rem'
+          }}>
+            <li>Architected an asynchronous, multi-agent NLP orchestration pipeline for long-context literature parsing, orchestrating 11 specialized LLM agent handoffs via deterministic Python execution graphs</li>
+            <li>Engineered automated empirical data collection engines for A/B user evaluation studies, compiling high-dimensional textual evaluation datasets to iteratively tune system prompts and generation parameters</li>
+            <li>Deployed secure analytical data pipelines to sanitize, aggregate, and evaluate Likert-scale metrics and context screening filters, guaranteeing high-fidelity ground truth sets for model evaluation</li>
+          </ul>
+        </div>
+
+        <div style={{ marginBottom: '1.5rem' }}>
+          <div className="resume-item-header" style={{ 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'flex-start',
+            marginBottom: '0.5rem',
+            flexWrap: 'wrap',
+            gap: '0.5rem'
+          }}>
+            <div>
+              <h3 style={{ color: colors.dark, fontSize: '1.1rem', margin: 0 }}>
+                Software Developer Intern
+              </h3>
+              <p style={{ color: colors.text, fontSize: '0.9rem', margin: '0.2rem 0' }}>
+                Utility Automation Solutions · Remote
+              </p>
+            </div>
+            <span style={{ color: colors.text, fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
+              Apr 2024 – Apr 2025
+            </span>
+          </div>
+          <ul style={{ 
+            color: colors.text, 
+            fontSize: '0.9rem', 
+            margin: '0.5rem 0',
+            paddingLeft: '1.5rem'
+          }}>
+            <li>Delivered a production-grade C# and WPF desktop application to automate electrical grid fault location analysis and safety triage</li>
           </ul>
         </div>
       </div>
 
-      {/* Awards and Achievements */}
+      {/* Projects */}
       <div style={{ marginBottom: '2rem' }}>
         <h2 style={{ 
           color: colors.dark, 
@@ -162,7 +224,79 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
           marginBottom: '1rem',
           textAlign: 'left'
         }}>
-          Awards and Achievements
+          Projects
+        </h2>
+
+        <div style={{ marginBottom: '1.5rem' }}>
+          <h3 style={{ color: colors.dark, fontSize: '1.1rem', margin: '0 0 0.5rem 0' }}>
+            Diffusion Watermarking
+          </h3>
+          <p style={{ color: colors.text, fontSize: '0.85rem', margin: '0 0 0.5rem 0', fontStyle: 'italic' }}>
+            Python, PyTorch, NumPy
+          </p>
+          <ul style={{ 
+            color: colors.text, 
+            fontSize: '0.9rem', 
+            margin: '0.5rem 0',
+            paddingLeft: '1.5rem'
+          }}>
+            <li>Built a scalable PyTorch evaluation suite to benchmark watermark robustness against image compression and adversarial noise injection</li>
+            <li>Engineered Fourier-domain signal processing pipelines that increased Tree-Ring watermark detection rate by 3x</li>
+            <li>Architected a modular latent diffusion backend supporting DDIM inversion without modifying base model weights</li>
+          </ul>
+        </div>
+
+        <div style={{ marginBottom: '1.5rem' }}>
+          <h3 style={{ color: colors.dark, fontSize: '1.1rem', margin: '0 0 0.5rem 0' }}>
+            CapySpend
+          </h3>
+          <p style={{ color: colors.text, fontSize: '0.85rem', margin: '0 0 0.5rem 0', fontStyle: 'italic' }}>
+            React, TypeScript, Node.js, Express, PostgreSQL, Plaid API, OpenAI
+          </p>
+          <ul style={{ 
+            color: colors.text, 
+            fontSize: '0.9rem', 
+            margin: '0.5rem 0',
+            paddingLeft: '1.5rem'
+          }}>
+            <li>Integrated the Plaid API within an Express backend to securely sync real-time ledger records, designing indexed PostgreSQL transaction schemas to guarantee fast relational queries</li>
+            <li>Engineered an autonomous financial co-pilot leveraging OpenAI's structured tool-calling capabilities to dynamically parse arbitrary user text and trigger appropriate transaction categorization workflows</li>
+            <li>Built a secure full-stack Single Page Application (SPA) implementing signed stateful JWT authorization layers and custom React routing hooks to protect sensitive financial domains</li>
+          </ul>
+        </div>
+
+        <div style={{ marginBottom: '1.5rem' }}>
+          <h3 style={{ color: colors.dark, fontSize: '1.1rem', margin: '0 0 0.5rem 0' }}>
+            AudioNovel
+          </h3>
+          <p style={{ color: colors.text, fontSize: '0.85rem', margin: '0 0 0.5rem 0', fontStyle: 'italic' }}>
+            Python, Flask, MongoDB Atlas, Cohere, ElevenLabs
+          </p>
+          <ul style={{ 
+            color: colors.text, 
+            fontSize: '0.9rem', 
+            margin: '0.5rem 0',
+            paddingLeft: '1.5rem'
+          }}>
+            <li>Built a scalable Flask REST API documented via OpenAPI specifications, integrating a companion React front-end utilizing secure cryptographically-salted bcrypt user authentications</li>
+            <li>Leveraged Cohere embed-english-v3.0 models to index contextual dense vector embeddings inside MongoDB Atlas, backing an optimized k-NN semantic search API endpoint</li>
+            <li>Designed a 10-stage asynchronous background queue processing architecture to ingest text uploads and synthesize multi-character narration files via ElevenLabs TTS API integrations</li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Awards */}
+      <div style={{ marginBottom: '2rem' }}>
+        <h2 style={{ 
+          color: colors.dark, 
+          fontSize: '1.3rem', 
+          fontWeight: '600',
+          borderBottom: `2px solid ${colors.primary}`,
+          paddingBottom: '0.5rem',
+          marginBottom: '1rem',
+          textAlign: 'left'
+        }}>
+          Awards
         </h2>
         <ul style={{ 
           color: colors.text, 
@@ -170,7 +304,8 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
           margin: '0.5rem 0',
           paddingLeft: '1.5rem'
         }}>
-          <li><strong>Mathematics Global Scholarships (2025):</strong> Awarded the $25,000 Mathematics Global Scholarship at the University of Waterloo</li>
+          <li><strong>Euclid Math Contest Honorable Mention (2024):</strong> Ranked Top 30 in Canada (Top 0.1%)</li>
+          <li><strong>University of Waterloo Mathematics Global Scholarship:</strong> Awarded $25,000 for academic excellence</li>
         </ul>
       </div>
 
