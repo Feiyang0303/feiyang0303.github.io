@@ -26,8 +26,8 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <h1 style={{ 
           color: colors.dark, 
-          fontSize: '2rem', 
-          fontWeight: 'bold',
+          fontSize: '2.35rem', 
+          fontWeight: '800',
           marginBottom: '0.5rem'
         }}>
           Feiyang Xu
@@ -38,8 +38,8 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
       <div style={{ marginBottom: '2rem' }}>
         <h2 style={{ 
           color: colors.dark, 
-          fontSize: '1.3rem', 
-          fontWeight: '600',
+          fontSize: '1.45rem', 
+          fontWeight: '700',
           borderBottom: `2px solid ${colors.primary}`,
           paddingBottom: '0.5rem',
           marginBottom: '1rem',
@@ -57,14 +57,14 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
             gap: '0.5rem'
           }}>
             <div>
-              <h3 style={{ color: colors.dark, fontSize: '1.1rem', margin: 0 }}>
+              <h3 style={{ color: colors.dark, fontSize: '1.2rem', margin: 0, fontWeight: '700' }}>
                 University of Waterloo
               </h3>
-              <p style={{ color: colors.text, fontSize: '0.9rem', margin: '0.2rem 0' }}>
+              <p style={{ color: colors.text, fontSize: '1rem', margin: '0.2rem 0' }}>
                 Bachelor of Computer Science
               </p>
             </div>
-            <span style={{ color: colors.text, fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
+            <span style={{ color: colors.text, fontSize: '1rem', whiteSpace: 'nowrap' }}>
               Anticipated Graduation: April 2029
             </span>
           </div>
@@ -75,8 +75,8 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
       <div style={{ marginBottom: '2rem' }}>
         <h2 style={{ 
           color: colors.dark, 
-          fontSize: '1.3rem', 
-          fontWeight: '600',
+          fontSize: '1.45rem', 
+          fontWeight: '700',
           borderBottom: `2px solid ${colors.primary}`,
           paddingBottom: '0.5rem',
           marginBottom: '1rem',
@@ -95,20 +95,20 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
             gap: '0.5rem'
           }}>
             <div>
-              <h3 style={{ color: colors.dark, fontSize: '1.1rem', margin: 0 }}>
+              <h3 style={{ color: colors.dark, fontSize: '1.2rem', margin: 0, fontWeight: '700' }}>
                 DevOps Engineering Intern
               </h3>
-              <p style={{ color: colors.text, fontSize: '0.9rem', margin: '0.2rem 0' }}>
+              <p style={{ color: colors.text, fontSize: '1rem', margin: '0.2rem 0' }}>
                 Xello Inc. · Toronto, ON
               </p>
             </div>
-            <span style={{ color: colors.text, fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
+            <span style={{ color: colors.text, fontSize: '1rem', whiteSpace: 'nowrap' }}>
               May 2026 – Present
             </span>
           </div>
           <ul style={{ 
             color: colors.text, 
-            fontSize: '0.9rem', 
+            fontSize: '1rem', 
             margin: '0.5rem 0',
             paddingLeft: '1.5rem'
           }}>
@@ -127,20 +127,20 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
             gap: '0.5rem'
           }}>
             <div>
-              <h3 style={{ color: colors.dark, fontSize: '1.1rem', margin: 0 }}>
+              <h3 style={{ color: colors.dark, fontSize: '1.2rem', margin: 0, fontWeight: '700' }}>
                 Undergraduate Research Assistant (ML Engineering)
               </h3>
-              <p style={{ color: colors.text, fontSize: '0.9rem', margin: '0.2rem 0' }}>
+              <p style={{ color: colors.text, fontSize: '1rem', margin: '0.2rem 0' }}>
                 University of Waterloo (Supervisor: Prof. Justin Wan) · Waterloo, ON
               </p>
             </div>
-            <span style={{ color: colors.text, fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
+            <span style={{ color: colors.text, fontSize: '1rem', whiteSpace: 'nowrap' }}>
               Feb 2026 – Present
             </span>
           </div>
           <ul style={{ 
             color: colors.text, 
-            fontSize: '0.9rem', 
+            fontSize: '1rem', 
             margin: '0.5rem 0',
             paddingLeft: '1.5rem'
           }}>
@@ -159,20 +159,20 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
             gap: '0.5rem'
           }}>
             <div>
-              <h3 style={{ color: colors.dark, fontSize: '1.1rem', margin: 0 }}>
+              <h3 style={{ color: colors.dark, fontSize: '1.2rem', margin: 0, fontWeight: '700' }}>
                 Research Assistant (Applied AI)
               </h3>
-              <p style={{ color: colors.text, fontSize: '0.9rem', margin: '0.2rem 0' }}>
+              <p style={{ color: colors.text, fontSize: '1rem', margin: '0.2rem 0' }}>
                 Yangzhou University · Remote
               </p>
             </div>
-            <span style={{ color: colors.text, fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
+            <span style={{ color: colors.text, fontSize: '1rem', whiteSpace: 'nowrap' }}>
               Dec 2024 – Jul 2025
             </span>
           </div>
           <ul style={{ 
             color: colors.text, 
-            fontSize: '0.9rem', 
+            fontSize: '1rem', 
             margin: '0.5rem 0',
             paddingLeft: '1.5rem'
           }}>
@@ -191,20 +191,20 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
             gap: '0.5rem'
           }}>
             <div>
-              <h3 style={{ color: colors.dark, fontSize: '1.1rem', margin: 0 }}>
+              <h3 style={{ color: colors.dark, fontSize: '1.2rem', margin: 0, fontWeight: '700' }}>
                 Software Developer Intern
               </h3>
-              <p style={{ color: colors.text, fontSize: '0.9rem', margin: '0.2rem 0' }}>
+              <p style={{ color: colors.text, fontSize: '1rem', margin: '0.2rem 0' }}>
                 Utility Automation Solutions · Remote
               </p>
             </div>
-            <span style={{ color: colors.text, fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
+            <span style={{ color: colors.text, fontSize: '1rem', whiteSpace: 'nowrap' }}>
               Apr 2024 – Apr 2025
             </span>
           </div>
           <ul style={{ 
             color: colors.text, 
-            fontSize: '0.9rem', 
+            fontSize: '1rem', 
             margin: '0.5rem 0',
             paddingLeft: '1.5rem'
           }}>
@@ -217,8 +217,8 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
       <div style={{ marginBottom: '2rem' }}>
         <h2 style={{ 
           color: colors.dark, 
-          fontSize: '1.3rem', 
-          fontWeight: '600',
+          fontSize: '1.45rem', 
+          fontWeight: '700',
           borderBottom: `2px solid ${colors.primary}`,
           paddingBottom: '0.5rem',
           marginBottom: '1rem',
@@ -228,15 +228,15 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
         </h2>
 
         <div style={{ marginBottom: '1.5rem' }}>
-          <h3 style={{ color: colors.dark, fontSize: '1.1rem', margin: '0 0 0.5rem 0' }}>
+          <h3 style={{ color: colors.dark, fontSize: '1.2rem', margin: '0 0 0.5rem 0', fontWeight: '700' }}>
             Diffusion Watermarking
           </h3>
-          <p style={{ color: colors.text, fontSize: '0.85rem', margin: '0 0 0.5rem 0', fontStyle: 'italic' }}>
+          <p style={{ color: colors.text, fontSize: '0.95rem', margin: '0 0 0.5rem 0', fontStyle: 'italic' }}>
             Python, PyTorch, NumPy
           </p>
           <ul style={{ 
             color: colors.text, 
-            fontSize: '0.9rem', 
+            fontSize: '1rem', 
             margin: '0.5rem 0',
             paddingLeft: '1.5rem'
           }}>
@@ -247,15 +247,15 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
         </div>
 
         <div style={{ marginBottom: '1.5rem' }}>
-          <h3 style={{ color: colors.dark, fontSize: '1.1rem', margin: '0 0 0.5rem 0' }}>
+          <h3 style={{ color: colors.dark, fontSize: '1.2rem', margin: '0 0 0.5rem 0', fontWeight: '700' }}>
             CapySpend
           </h3>
-          <p style={{ color: colors.text, fontSize: '0.85rem', margin: '0 0 0.5rem 0', fontStyle: 'italic' }}>
+          <p style={{ color: colors.text, fontSize: '0.95rem', margin: '0 0 0.5rem 0', fontStyle: 'italic' }}>
             React, TypeScript, Node.js, Express, PostgreSQL, Plaid API, OpenAI
           </p>
           <ul style={{ 
             color: colors.text, 
-            fontSize: '0.9rem', 
+            fontSize: '1rem', 
             margin: '0.5rem 0',
             paddingLeft: '1.5rem'
           }}>
@@ -266,15 +266,15 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
         </div>
 
         <div style={{ marginBottom: '1.5rem' }}>
-          <h3 style={{ color: colors.dark, fontSize: '1.1rem', margin: '0 0 0.5rem 0' }}>
+          <h3 style={{ color: colors.dark, fontSize: '1.2rem', margin: '0 0 0.5rem 0', fontWeight: '700' }}>
             AudioNovel
           </h3>
-          <p style={{ color: colors.text, fontSize: '0.85rem', margin: '0 0 0.5rem 0', fontStyle: 'italic' }}>
+          <p style={{ color: colors.text, fontSize: '0.95rem', margin: '0 0 0.5rem 0', fontStyle: 'italic' }}>
             Python, Flask, MongoDB Atlas, Cohere, ElevenLabs
           </p>
           <ul style={{ 
             color: colors.text, 
-            fontSize: '0.9rem', 
+            fontSize: '1rem', 
             margin: '0.5rem 0',
             paddingLeft: '1.5rem'
           }}>
@@ -289,8 +289,8 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
       <div style={{ marginBottom: '2rem' }}>
         <h2 style={{ 
           color: colors.dark, 
-          fontSize: '1.3rem', 
-          fontWeight: '600',
+          fontSize: '1.45rem', 
+          fontWeight: '700',
           borderBottom: `2px solid ${colors.primary}`,
           paddingBottom: '0.5rem',
           marginBottom: '1rem',
@@ -304,7 +304,7 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
           margin: '0.5rem 0',
           paddingLeft: '1.5rem'
         }}>
-          <li><strong>Euclid Math Contest Honorable Mention (2024):</strong> Ranked Top 30 in Canada (Top 0.1%)</li>
+          <li><strong>Euclid Math Contest Honorable Mention (2024):</strong> Ranked Top 10 in Canada </li>
           <li><strong>University of Waterloo Mathematics Global Scholarship:</strong> Awarded $25,000 for academic excellence</li>
         </ul>
       </div>
@@ -313,8 +313,8 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
       <div>
         <h2 style={{ 
           color: colors.dark, 
-          fontSize: '1.3rem', 
-          fontWeight: '600',
+          fontSize: '1.45rem', 
+          fontWeight: '700',
           borderBottom: `2px solid ${colors.primary}`,
           paddingBottom: '0.5rem',
           marginBottom: '1rem',
@@ -328,26 +328,26 @@ const Resume: React.FC<ResumeProps> = ({ colors }) => {
           gap: '1rem'
         }}>
           <div>
-            <h4 style={{ color: colors.dark, fontSize: '1rem', margin: '0 0 0.5rem 0' }}>
+            <h4 style={{ color: colors.dark, fontSize: '1.1rem', margin: '0 0 0.5rem 0', fontWeight: '700' }}>
               Languages
             </h4>
-            <p style={{ color: colors.text, fontSize: '0.9rem', margin: 0 }}>
+            <p style={{ color: colors.text, fontSize: '1rem', margin: 0 }}>
               Python, Java, C/C++, C#, TypeScript, JavaScript, HTML/CSS, SQL
             </p>
           </div>
           <div>
-            <h4 style={{ color: colors.dark, fontSize: '1rem', margin: '0 0 0.5rem 0' }}>
+            <h4 style={{ color: colors.dark, fontSize: '1.1rem', margin: '0 0 0.5rem 0', fontWeight: '700' }}>
               Frameworks
             </h4>
-            <p style={{ color: colors.text, fontSize: '0.9rem', margin: 0 }}>
+            <p style={{ color: colors.text, fontSize: '1rem', margin: 0 }}>
               React, React Native, Next.js, Angular, Expo, Node.js, Git, MongoDB, PostgreSQL
             </p>
           </div>
           <div>
-            <h4 style={{ color: colors.dark, fontSize: '1rem', margin: '0 0 0.5rem 0' }}>
+            <h4 style={{ color: colors.dark, fontSize: '1.1rem', margin: '0 0 0.5rem 0', fontWeight: '700' }}>
               Design
             </h4>
-            <p style={{ color: colors.text, fontSize: '0.9rem', margin: 0 }}>
+            <p style={{ color: colors.text, fontSize: '1rem', margin: 0 }}>
               Figma, Three.js, Blender, Fusion 360
             </p>
           </div>

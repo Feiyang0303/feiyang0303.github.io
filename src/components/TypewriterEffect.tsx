@@ -78,9 +78,9 @@ const TypewriterEffect: React.FC<TypewriterEffectProps> = ({ roles, baseText, co
         transition={{ duration: 0.8, delay: 0.9 }}
         style={{ 
           color: colors.text,
-          fontSize: '1.5rem',
-          fontWeight: '400',
-          minHeight: '2rem',
+          fontSize: '1.75rem',
+          fontWeight: '500',
+          minHeight: '2.25rem',
           display: 'flex',
           alignItems: 'center'
         }}

@@ -5,6 +5,7 @@ import SunriseBackground from './components/SunriseBackground';
 import TypewriterEffect from './components/TypewriterEffect';
 import Resume from './components/Resume';
 import { EMAILJS_CONFIG } from './config/emailjs';
+import { CONTACT_EMAIL, buildMailtoLink } from './config/contact';
 import './App.css';
 
 const App: React.FC = () => {
@@ -19,7 +20,7 @@ const App: React.FC = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error' | 'fallback'>('idle');
 
   const morandiColors = {
     primary: '#E0AEE9',    // Soft beige
@@ -50,147 +51,70 @@ const App: React.FC = () => {
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    console.log('Form submitted with data:', contactForm);
-    console.log('EmailJS Config:', EMAILJS_CONFIG);
-    console.log('Form validation check:');
-    console.log('- Name:', contactForm.name, 'Length:', contactForm.name.length, 'Trimmed:', contactForm.name.trim().length, 'Empty?', !contactForm.name.trim());
-    console.log('- Email:', contactForm.email, 'Length:', contactForm.email.length, 'Trimmed:', contactForm.email.trim().length, 'Empty?', !contactForm.email.trim());
-    console.log('- Message:', contactForm.message, 'Length:', contactForm.message.length, 'Trimmed:', contactForm.message.trim().length, 'Empty?', !contactForm.message.trim());
-    
-    // Basic validation
-    if (!contactForm.name.trim() || !contactForm.email.trim() || !contactForm.message.trim()) {
-      console.log('Validation failed - empty fields detected');
-      console.log('Name empty?', !contactForm.name.trim());
-      console.log('Email empty?', !contactForm.email.trim());
-      console.log('Message empty?', !contactForm.message.trim());
+
+    const name = contactForm.name.trim();
+    const email = contactForm.email.trim();
+    const message = contactForm.message.trim();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!name || !email || !message) {
       setSubmitStatus('error');
       return;
     }
 
-    console.log('Validation passed, proceeding with EmailJS...');
+    if (!emailPattern.test(email)) {
+      setSubmitStatus('error');
+      return;
+    }
 
     setIsSubmitting(true);
-    
-    // EmailJS configuration
+    setSubmitStatus('idle');
+
     const templateParams = {
-      name: contactForm.name,
-      email: contactForm.email,
-      message: contactForm.message
+      name,
+      email,
+      message,
+      reply_to: email,
+      to_email: CONTACT_EMAIL,
     };
 
     try {
-      // Check if EmailJS is properly configured
-      if (EMAILJS_CONFIG.SERVICE_ID === 'YOUR_SERVICE_ID' || 
-          EMAILJS_CONFIG.TEMPLATE_ID === 'YOUR_TEMPLATE_ID' || 
-          EMAILJS_CONFIG.PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
-        
-        console.log('EmailJS not configured yet, using fallback mailto method');
-        
-        // Fallback to mailto method until EmailJS is set up
-        const mailtoLink = `mailto:f82xu@uwaterloo.ca?subject=Contact from ${encodeURIComponent(contactForm.name)}&body=${encodeURIComponent(`Name: ${contactForm.name}\nEmail: ${contactForm.email}\n\nMessage:\n${contactForm.message}`)}`;
-        
-        window.location.href = mailtoLink;
-        
-        // Reset form and show success
+      const result = await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID,
+        templateParams,
+        EMAILJS_CONFIG.PUBLIC_KEY
+      );
+
+      if (result.status === 200) {
         setContactForm({ name: '', email: '', message: '' });
         setSubmitStatus('success');
-        
-        // Reset status after 3 seconds
-        setTimeout(() => {
-          setSubmitStatus('idle');
-        }, 3000);
-        
+        setTimeout(() => setSubmitStatus('idle'), 4000);
         return;
       }
 
-      console.log('Using EmailJS to send email');
-      
-      console.log('EmailJS template params:', templateParams);
-      console.log('Sending to EmailJS with:');
-      console.log('- Service ID:', EMAILJS_CONFIG.SERVICE_ID);
-      console.log('- Template ID:', EMAILJS_CONFIG.TEMPLATE_ID);
-      console.log('- Public Key:', EMAILJS_CONFIG.PUBLIC_KEY);
-
-      // Send email using EmailJS
-      try {
-        const result = await emailjs.send(
-          EMAILJS_CONFIG.SERVICE_ID,
-          EMAILJS_CONFIG.TEMPLATE_ID,
-          templateParams,
-          EMAILJS_CONFIG.PUBLIC_KEY
-        );
-
-        console.log('EmailJS result:', result);
-
-        if (result.status === 200) {
-          console.log('✅ Email sent successfully! Check your inbox and spam folder.');
-          console.log('📧 Email should be sent to: feiyangxuca@gmail.com');
-          console.log('📋 Template used: template_92rs3o9');
-          console.log('🔗 Service used: service_2qfjuv6 (Gmail)');
-          console.log('📨 EmailJS response:', result);
-          console.log('💡 If you don\'t receive the email:');
-          console.log('   1. Check your Gmail inbox at feiyangxuca@gmail.com');
-          console.log('   2. Check Gmail spam/junk folder');
-          console.log('   3. Check Gmail "All Mail" folder');
-          console.log('   4. Check Gmail filters and settings');
-          console.log('   5. Template variables should be: {{name}}, {{email}}, {{message}}');
-          // Reset form and show success
-          setContactForm({ name: '', email: '', message: '' });
-          setSubmitStatus('success');
-          
-          // Reset status after 3 seconds
-          setTimeout(() => {
-            setSubmitStatus('idle');
-          }, 3000);
-        } else {
-          console.error('EmailJS returned non-200 status:', result.status);
-          setSubmitStatus('error');
-        }
-      } catch (emailjsError) {
-        console.error('EmailJS specific error:', emailjsError);
-        throw emailjsError; // Re-throw to be caught by outer catch
-      }
-      
-    } catch (error: any) {
-      console.error('Email sending failed:', error);
-      console.error('Error details:', {
-        message: error.message || 'Unknown error',
-        stack: error.stack || 'No stack trace',
-        config: EMAILJS_CONFIG,
-        status: error.status,
-        text: error.text,
-        response: error.response
-      });
-      
-      // Check for specific EmailJS errors
-      if (error.status === 422) {
-        console.error('422 Error - This usually means template variables mismatch or invalid data');
-        console.error('Template variables expected by EmailJS:', templateParams);
-      }
-      
-      setSubmitStatus('error');
+      throw new Error(`EmailJS returned status ${result.status}`);
+    } catch (error) {
+      console.error('EmailJS failed, falling back to mailto:', error);
+      window.location.href = buildMailtoLink(name, email, message);
+      setContactForm({ name: '', email: '', message: '' });
+      setSubmitStatus('fallback');
+      setTimeout(() => setSubmitStatus('idle'), 5000);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleInputChange = (field: string, value: string) => {
-    console.log(`Updating ${field}:`, value);
-    setContactForm(prev => {
-      const newState = {
-        ...prev,
-        [field]: value
-      };
-      console.log('New form state:', newState);
-      return newState;
-    });
+    setContactForm(prev => ({
+      ...prev,
+      [field]: value
+    }));
   };
 
   // Initialize EmailJS
   useEffect(() => {
     emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
-    console.log('EmailJS initialized with public key:', EMAILJS_CONFIG.PUBLIC_KEY);
   }, []);
 
   const sections = [
@@ -319,7 +243,7 @@ const App: React.FC = () => {
             }}>
               <p style={{ 
                 color: morandiColors.text, 
-                fontSize: '1.2rem', 
+                fontSize: '1.25rem', 
                 lineHeight: '1.8', 
                 flex: '1',
                 minWidth: 'min(300px, 100%)',
@@ -504,16 +428,21 @@ const App: React.FC = () => {
             <h2 style={{ color: morandiColors.dark }}>Get In Touch</h2>
             <div className="contact-content">
               <div className="contact-info">
-                <p style={{ color: morandiColors.text, fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '2rem' }}>
+                <p style={{ color: morandiColors.text, fontSize: '1.2rem', lineHeight: '1.8', marginBottom: '2rem' }}>
                   I'm always interested in new opportunities and exciting projects. 
                   Let's work together to create something amazing!
                 </p>
                 
                 <div className="contact-methods">
                   <motion.a
-                    href="mailto:f82xu@uwaterloo.ca"
+                    href={`mailto:${CONTACT_EMAIL}`}
                     className="contact-link"
                     whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.location.href = `mailto:${CONTACT_EMAIL}`;
+                    }}
                     style={{ 
                       backgroundColor: 'rgba(104, 93, 194, 0.8)', 
                       color: morandiColors.light,
@@ -527,6 +456,7 @@ const App: React.FC = () => {
                     rel="noopener noreferrer"
                     className="contact-link"
                     whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     style={{ 
                       backgroundColor: 'rgba(240, 181, 218, 0.8)', 
                       color: morandiColors.dark,
@@ -540,6 +470,7 @@ const App: React.FC = () => {
                     rel="noopener noreferrer"
                     className="contact-link"
                     whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     style={{ 
                       backgroundColor: 'rgba(224, 174, 233, 0.8)', 
                       color: morandiColors.dark,
@@ -561,8 +492,8 @@ const App: React.FC = () => {
                 <h3 style={{ 
                   color: morandiColors.dark, 
                   marginBottom: '1.5rem',
-                  fontSize: '1.5rem',
-                  fontWeight: '600',
+                  fontSize: '1.65rem',
+                  fontWeight: '700',
                   textAlign: 'center'
                 }}>Send me a message</h3>
                 
@@ -599,7 +530,28 @@ const App: React.FC = () => {
                       marginBottom: '1rem'
                     }}
                   >
-                    ❌ Please fill in all fields correctly.
+                    Please fill in all fields with a valid email address.
+                  </motion.div>
+                )}
+
+                {submitStatus === 'fallback' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    style={{
+                      padding: '1rem',
+                      borderRadius: '12px',
+                      backgroundColor: 'rgba(104, 93, 194, 0.2)',
+                      border: '1px solid rgba(104, 93, 194, 0.5)',
+                      color: morandiColors.dark,
+                      textAlign: 'center',
+                      marginBottom: '1rem'
+                    }}
+                  >
+                    Opening your email app — or reach me directly at{' '}
+                    <a href={`mailto:${CONTACT_EMAIL}`} style={{ color: morandiColors.accent, fontWeight: 600 }}>
+                      {CONTACT_EMAIL}
+                    </a>
                   </motion.div>
                 )}
                 
@@ -610,7 +562,7 @@ const App: React.FC = () => {
                       marginBottom: '0.5rem', 
                       color: morandiColors.dark,
                       fontWeight: '500',
-                      fontSize: '0.9rem'
+                      fontSize: '1.05rem'
                     }}>Name *</label>
                     <input
                       type="text"
@@ -625,7 +577,7 @@ const App: React.FC = () => {
                         border: `2px solid ${morandiColors.primary}`,
                         backgroundColor: 'rgba(248, 246, 243, 0.6)',
                         color: '#2c3e50',
-                        fontSize: '1rem',
+                        fontSize: '1.05rem',
                         backdropFilter: 'blur(10px)',
                         transition: 'all 0.3s ease',
                         outline: 'none'
@@ -646,7 +598,7 @@ const App: React.FC = () => {
                       marginBottom: '0.5rem', 
                       color: morandiColors.dark,
                       fontWeight: '500',
-                      fontSize: '0.9rem'
+                      fontSize: '1.05rem'
                     }}>Email *</label>
                     <input
                       type="email"
@@ -661,7 +613,7 @@ const App: React.FC = () => {
                         border: `2px solid ${morandiColors.primary}`,
                         backgroundColor: 'rgba(248, 246, 243, 0.6)',
                         color: '#2c3e50',
-                        fontSize: '1rem',
+                        fontSize: '1.05rem',
                         backdropFilter: 'blur(10px)',
                         transition: 'all 0.3s ease',
                         outline: 'none'
@@ -682,7 +634,7 @@ const App: React.FC = () => {
                       marginBottom: '0.5rem', 
                       color: morandiColors.dark,
                       fontWeight: '500',
-                      fontSize: '0.9rem'
+                      fontSize: '1.05rem'
                     }}>Message *</label>
                     <textarea
                       placeholder="Feel free to reach out to me!"
@@ -696,7 +648,7 @@ const App: React.FC = () => {
                         border: `2px solid ${morandiColors.primary}`,
                         backgroundColor: 'rgba(248, 246, 243, 0.6)',
                         color: '#2c3e50',
-                        fontSize: '1rem',
+                        fontSize: '1.05rem',
                         resize: 'vertical',
                         backdropFilter: 'blur(10px)',
                         fontFamily: 'inherit',
@@ -740,12 +692,14 @@ const App: React.FC = () => {
           </section>
         )}
       </motion.main>
-      <button
-        type="button"
-        className="spaceship-hitzone"
-        onClick={handleSpaceshipClick}
-        aria-label="Launch spaceship"
-      />
+      {activeSection === 'home' && (
+        <button
+          type="button"
+          className="spaceship-hitzone"
+          onClick={handleSpaceshipClick}
+          aria-label="Launch spaceship"
+        />
+      )}
       </div>
     </div>
   );

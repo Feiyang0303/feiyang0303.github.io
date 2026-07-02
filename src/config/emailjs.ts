@@ -2,9 +2,10 @@
 // Get these values from your EmailJS dashboard: https://dashboard.emailjs.com/
 
 export const EMAILJS_CONFIG = {
-  SERVICE_ID: 'service_2qfjuv6', // Your EmailJS service ID
-  TEMPLATE_ID: 'template_92rs3o9', // Your EmailJS template ID
-  PUBLIC_KEY: '1cglWwC8Mp7fiUqF4' // Your EmailJS public key
+  SERVICE_ID: 'service_2qfjuv6',
+  TEMPLATE_ID: 'template_92rs3o9',
+  PUBLIC_KEY: '1cglWwC8Mp7fiUqF4',
+  RECIPIENT_EMAIL: 'feiyangxuca@gmail.com',
 };
 
 // Initialize§ EmailJS

@@ -6,8 +6,8 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  line-height: 1.6;
+  font-family: var(--font-body, 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+  line-height: 1.65;
   overflow-x: hidden;
 }
 
@@ -45,7 +45,10 @@ body {
   label,
   .resume-container,
   .project-card,
-  .contact-form
+  .contact-form,
+  .contact-info,
+  .contact-methods,
+  .contact-link
 ) {
   pointer-events: auto;
 }
@@ -144,8 +147,9 @@ body {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-weight: 600;
-  font-size: 1.25rem;
+  font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
+  font-weight: 700;
+  font-size: 1.35rem;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -177,11 +181,12 @@ body {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 25px;
-  font-weight: 500;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   position: relative;
   overflow: hidden;
 }
@@ -247,8 +252,8 @@ body {
 }
 
 .hero-text h1 {
-  font-size: 3.5rem;
-  font-weight: 700;
+  font-size: 4rem;
+  font-weight: 800;
   margin-bottom: 1.5rem;
   line-height: 1.2;
   opacity: 0;
@@ -256,7 +261,7 @@ body {
 }
 
 .hero-text p {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   margin-bottom: 2rem;
   opacity: 0;
   animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
@@ -268,8 +273,9 @@ body {
 }
 
 .typewriter-container h1 {
-  font-size: 3.5rem;
-  font-weight: 700;
+  font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: 4rem;
+  font-weight: 800;
   margin-bottom: 1rem;
   line-height: 1.2;
   opacity: 0;
@@ -277,14 +283,14 @@ body {
 }
 
 .typing-line {
-  font-size: 1.5rem;
-  font-weight: 400;
-  min-height: 2rem;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 1.75rem;
+  font-weight: 500;
+  min-height: 2.25rem;
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
-  font-family: 'Courier New', monospace;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.01em;
 }
 
 .roles-list {
@@ -300,11 +306,12 @@ body {
 }
 
 .cta-button {
-  padding: 1rem 2rem;
+  padding: 1.1rem 2.25rem;
   border: none;
   border-radius: 30px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -356,8 +363,8 @@ body {
 }
 
 .about-section h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: 2.85rem;
+  font-weight: 800;
   margin-bottom: 3rem;
   text-align: center;
 }
@@ -410,7 +417,7 @@ body {
 }
 
 .about-text p {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   margin-bottom: 2rem;
   line-height: 1.8;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -452,8 +459,8 @@ body {
 }
 
 .projects-section h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: 2.85rem;
+  font-weight: 800;
   margin-bottom: 3rem;
   text-align: center;
 }
@@ -498,8 +505,9 @@ body {
 }
 
 .project-card h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.65rem;
+  font-weight: 700;
   margin-bottom: 1rem;
   transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -510,7 +518,8 @@ body {
 
 .project-card p {
   margin-bottom: 1.5rem;
-  line-height: 1.6;
+  line-height: 1.7;
+  font-size: 1.05rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -540,8 +549,8 @@ body {
 }
 
 .contact-section h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: 2.85rem;
+  font-weight: 800;
   margin-bottom: 3rem;
   text-align: center;
 }
@@ -559,7 +568,7 @@ body {
 }
 
 .contact-info p {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   margin-bottom: 2rem;
   line-height: 1.8;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -580,6 +589,9 @@ body {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 25;
 }
 
 .contact-link::before {
@@ -723,21 +735,21 @@ body {
   }
 
   .hero-text h1 {
-    font-size: 2.5rem;
+    font-size: 2.85rem;
   }
   
   .hero-text p {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
   
   .typewriter-container h1 {
-    font-size: 2.5rem;
+    font-size: 2.85rem;
     line-height: 1.2;
   }
   
   .typing-line {
-    font-size: 1.2rem;
-    min-height: 1.8rem;
+    font-size: 1.45rem;
+    min-height: 2rem;
   }
 
   .cta-button {
@@ -946,22 +958,22 @@ body {
   }
 
   .hero-text h1 {
-    font-size: 2rem;
+    font-size: 2.35rem;
     line-height: 1.2;
   }
   
   .hero-text p {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
   
   .typewriter-container h1 {
-    font-size: 2rem;
+    font-size: 2.35rem;
     line-height: 1.2;
   }
   
   .typing-line {
-    font-size: 1rem;
-    min-height: 1.5rem;
+    font-size: 1.25rem;
+    min-height: 1.75rem;
   }
 
   .hero-character {
