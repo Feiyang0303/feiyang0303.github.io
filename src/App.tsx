@@ -31,13 +31,21 @@ const App: React.FC = () => {
     light: '#F8F6F3'       // Very light cream
   };
 
-  const handleViewWorkClick = () => {
-    setActiveSection('projects');
+  const triggerTravel = () => {
+    if (isTraveling) return;
     setIsTraveling(true);
-    // Reset after 3 seconds
     setTimeout(() => {
       setIsTraveling(false);
     }, 3000);
+  };
+
+  const handleViewWorkClick = () => {
+    setActiveSection('projects');
+    triggerTravel();
+  };
+
+  const handleSpaceshipClick = () => {
+    triggerTravel();
   };
 
   const handleContactSubmit = async (e: React.FormEvent) => {
@@ -194,7 +202,7 @@ const App: React.FC = () => {
 
   return (
     <div className="app">
-      <SunriseBackground isTraveling={isTraveling} />
+      <SunriseBackground isTraveling={isTraveling} onSpaceshipClick={handleSpaceshipClick} />
       <div className="content-overlay" style={{ backgroundColor: 'rgba(245, 241, 237, 0)' }}>
       {/* Navigation */}
       <nav className="navbar">

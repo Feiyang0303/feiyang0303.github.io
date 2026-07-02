@@ -5,7 +5,7 @@ import { Canvas } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 
 // Spaceship component using GLB model
-const Spaceship: React.FC<{ isTraveling: boolean }> = ({ isTraveling }) => {
+const Spaceship: React.FC<{ onClick: () => void; isTraveling: boolean }> = ({ onClick, isTraveling }) => {
   const groupRef = useRef<THREE.Group>(null);
   const timeRef = useRef(0);
   const [isBoosting, setIsBoosting] = useState(false);
@@ -117,8 +117,21 @@ const Spaceship: React.FC<{ isTraveling: boolean }> = ({ isTraveling }) => {
         </group>
       )}
       
-      {/* Glow effect around spaceship */}
-      <mesh position={[0, 0, 0]} scale={[8, 8, 8]}>
+      {/* Clickable hit area + glow effect around spaceship */}
+      <mesh
+        position={[0, 0, 0]}
+        scale={[8, 8, 8]}
+        onClick={(event) => {
+          event.stopPropagation();
+          onClick();
+        }}
+        onPointerOver={() => {
+          document.body.style.cursor = 'pointer';
+        }}
+        onPointerOut={() => {
+          document.body.style.cursor = 'auto';
+        }}
+      >
         <sphereGeometry args={[0.5, 8, 8]} />
         <meshStandardMaterial 
           color="#E8D5C4" 
@@ -458,7 +471,7 @@ const Sparkles: React.FC = () => {
 };
 
 // Main scene component
-const MagicalScene: React.FC<{ isTraveling: boolean }> = ({ isTraveling }) => {
+const MagicalScene: React.FC<{ isTraveling: boolean; onSpaceshipClick: () => void }> = ({ isTraveling, onSpaceshipClick }) => {
   const groupRef = useRef<THREE.Group>(null);
   const timeRef = useRef(0);
 
@@ -487,13 +500,13 @@ const MagicalScene: React.FC<{ isTraveling: boolean }> = ({ isTraveling }) => {
       <GalaxyStars isTraveling={isTraveling} />
       
       {/* Spaceship - always show, let it handle boost state */}
-      <Spaceship isTraveling={isTraveling} />
+      <Spaceship onClick={onSpaceshipClick} isTraveling={isTraveling} />
     </group>
   );
 };
 
 // Main component with Canvas
-const SunriseBackground: React.FC<{ isTraveling: boolean }> = ({ isTraveling }) => {
+const SunriseBackground: React.FC<{ isTraveling: boolean; onSpaceshipClick: () => void }> = ({ isTraveling, onSpaceshipClick }) => {
   return (
     <div style={{
       position: 'fixed',
@@ -549,10 +562,7 @@ const SunriseBackground: React.FC<{ isTraveling: boolean }> = ({ isTraveling }) 
           distance={40}
         />
         
-        <MagicalScene isTraveling={isTraveling} />
-        
-        {/* Spaceship - always show, let it handle boost state */}
-        <Spaceship isTraveling={isTraveling} />
+        <MagicalScene isTraveling={isTraveling} onSpaceshipClick={onSpaceshipClick} />
       </Canvas>
     </div>
   );

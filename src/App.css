@@ -32,6 +32,24 @@ body {
   pointer-events: auto;
 }
 
+.main-content {
+  pointer-events: none;
+}
+
+.main-content :is(
+  button,
+  a,
+  input,
+  textarea,
+  select,
+  label,
+  .resume-container,
+  .project-card,
+  .contact-form
+) {
+  pointer-events: auto;
+}
+
 /* Navigation */
 .navbar {
   display: flex;
